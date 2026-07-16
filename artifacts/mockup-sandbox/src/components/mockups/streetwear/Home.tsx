@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Search, ShoppingCart, ArrowRight, Truck, CreditCard, Shield, X, Plus, Minus, ChevronRight, Instagram } from 'lucide-react';
+import { Search, ShoppingCart, Truck, CreditCard, Shield, X, Plus, Minus, ChevronRight, Instagram, Mail } from 'lucide-react';
 
 if (typeof document !== 'undefined') {
   const id = 'gm-fonts';
@@ -19,6 +19,7 @@ interface Product {
   name: string;
   price: number;
   img: string;
+  images?: string[];
   sizes: string[];
   stock: number;
 }
@@ -32,10 +33,11 @@ interface CartItem {
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
 const PRODUCTS: Product[] = [
-  { id: 1, name: "Remera NFL Beige",        price: 46999, img: "/__mockup/images/streetwear/product-hoodie.png", sizes: ["M", "L"],    stock: 2 },
-  { id: 2, name: "Remera NFL Blue",         price: 46999, img: "/__mockup/images/streetwear/product-tee.png",    sizes: ["M"],         stock: 1 },
-  { id: 3, name: "Remera NFL Black",        price: 46999, img: "/__mockup/images/streetwear/product-cargo.png",  sizes: ["M"],         stock: 1 },
-  { id: 4, name: "Gorras Cerradas 59 Fifty",price: 22499, img: "/__mockup/images/streetwear/product-coat.png",   sizes: ["7 1/4"],     stock: 6 },
+  { id: 1, name: "Remera NFL Beige",         price: 46999, img: "/__mockup/images/streetwear/product-hoodie.png",                                                                                 sizes: ["M", "L"],        stock: 2 },
+  { id: 2, name: "Remera NFL Blue",          price: 46999, img: "/__mockup/images/streetwear/product-tee.png",                                                                                    sizes: ["M"],             stock: 1 },
+  { id: 3, name: "Remera NFL Black",         price: 46999, img: "/__mockup/images/streetwear/product-cargo.png",                                                                                  sizes: ["M"],             stock: 1 },
+  { id: 5, name: "Baggy Pocket",             price: 62999, img: "https://res.cloudinary.com/z0klcira/image/upload/v1784175603/imagen_2026-07-16_012020456_mv6sva.png", images: ["https://res.cloudinary.com/z0klcira/image/upload/v1784175603/imagen_2026-07-16_012020456_mv6sva.png", "https://res.cloudinary.com/z0klcira/image/upload/v1784175612/imagen_2026-07-16_012040256_hj6yvz.png"], sizes: ["40", "42"], stock: 2 },
+  { id: 4, name: "Gorras Cerradas 59 Fifty", price: 22499, img: "https://res.cloudinary.com/z0klcira/image/upload/v1784174885/imagen_2026-07-16_010831707_m3fzr8.png",                           sizes: ["7 1/4"],         stock: 6 },
 ];
 
 const fmt = (n: number) => `$${n.toLocaleString('es-AR')}`;
@@ -64,7 +66,6 @@ function ProductCard({ product, onClick }: { product: Product; onClick: () => vo
     <div className="relative w-full aspect-[4/5] overflow-hidden bg-[#111] group cursor-pointer" onClick={onClick}>
       <img src={product.img} alt={product.name} className="w-full h-full object-cover transition-transform duration-1000 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:scale-[1.05] opacity-90 group-hover:opacity-100" />
       <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-700" />
-      {/* Stock badge */}
       {product.stock <= 2 && (
         <div className="absolute top-5 left-5 bg-[#8B5E3C] text-[#F5F4F2] text-[9px] tracking-[0.15em] uppercase px-3 py-1 font-['Inter']">
           {product.stock === 1 ? 'Último' : `${product.stock} disponibles`}
@@ -77,7 +78,6 @@ function ProductCard({ product, onClick }: { product: Product; onClick: () => vo
         </div>
         <span className="font-['Inter'] text-sm tracking-wider text-[#C8C0B8]">{fmt(product.price)}</span>
       </div>
-      {/* Quick buy hint */}
       <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
         <div className="bg-[#F5F4F2] text-[#0A0A0A] text-[10px] tracking-[0.2em] uppercase px-5 py-3 font-['Inter'] font-medium flex items-center gap-2 -translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
           Ver producto <ChevronRight size={12} />
@@ -90,6 +90,8 @@ function ProductCard({ product, onClick }: { product: Product; onClick: () => vo
 // ─── Product Modal ────────────────────────────────────────────────────────────
 
 function ProductModal({ product, onClose, onAddToCart }: { product: Product; onClose: () => void; onAddToCart: (item: CartItem) => void }) {
+  const allImages = product.images && product.images.length > 1 ? product.images : [product.img];
+  const [activeImg, setActiveImg] = useState(0);
   const [selectedSize, setSelectedSize] = useState<string | null>(product.sizes.length === 1 ? product.sizes[0] : null);
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
@@ -105,17 +107,29 @@ function ProductModal({ product, onClose, onAddToCart }: { product: Product; onC
 
   return (
     <div className="fixed inset-0 z-[100] flex items-end md:items-center justify-center font-['Inter']" onClick={onClose}>
-      {/* Backdrop */}
       <div className="absolute inset-0 bg-[#0A0A0A]/80 backdrop-blur-sm" />
-
-      {/* Panel */}
       <div
         className="relative z-10 bg-[#111] border border-[#F5F4F2]/8 w-full max-w-2xl max-h-[92vh] overflow-y-auto flex flex-col md:flex-row"
         onClick={e => e.stopPropagation()}
       >
-        {/* Image */}
-        <div className="w-full md:w-1/2 aspect-[4/5] shrink-0 overflow-hidden">
-          <img src={product.img} alt={product.name} className="w-full h-full object-cover" />
+        {/* Image + gallery thumbs */}
+        <div className="w-full md:w-1/2 shrink-0 flex flex-col">
+          <div className="w-full aspect-[4/5] overflow-hidden">
+            <img src={allImages[activeImg]} alt={product.name} className="w-full h-full object-cover transition-opacity duration-300" />
+          </div>
+          {allImages.length > 1 && (
+            <div className="flex gap-2 px-4 py-3 bg-[#0D0D0D]">
+              {allImages.map((src, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActiveImg(i)}
+                  className={`w-14 h-14 border overflow-hidden transition-all duration-200 ${activeImg === i ? 'border-[#F5F4F2]' : 'border-[#F5F4F2]/15 opacity-50 hover:opacity-80'}`}
+                >
+                  <img src={src} alt="" className="w-full h-full object-cover" />
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Info */}
@@ -155,23 +169,15 @@ function ProductModal({ product, onClose, onAddToCart }: { product: Product; onC
             </div>
           </div>
 
-          {/* CTA */}
+          {/* CTA — cart only */}
           <div className="flex flex-col gap-3">
             <button
               onClick={handleAdd}
               disabled={!selectedSize}
               className={`w-full py-4 text-xs tracking-[0.25em] uppercase font-medium transition-all duration-300 ${added ? 'bg-[#8B5E3C] text-[#F5F4F2]' : !selectedSize ? 'bg-[#F5F4F2]/10 text-[#C8C0B8] cursor-not-allowed' : 'bg-[#F5F4F2] text-[#0A0A0A] hover:bg-[#C8C0B8]'}`}
             >
-              {added ? '✓ Agregado' : !selectedSize ? 'Seleccioná un talle' : 'Agregar al carrito'}
+              {added ? '✓ Agregado al carrito' : !selectedSize ? 'Seleccioná un talle' : 'Agregar al carrito'}
             </button>
-            <a
-              href={`https://wa.me/?text=Hola! Quiero encargar: ${product.name} - Talle: ${selectedSize || '?'} - Cantidad: ${qty} - Precio: ${fmt(product.price * qty)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full py-4 text-xs tracking-[0.25em] uppercase font-medium text-center border border-[#25D366] text-[#25D366] hover:bg-[#25D366] hover:text-[#0A0A0A] transition-all duration-300"
-            >
-              Encargar por WhatsApp
-            </a>
           </div>
 
           {!selectedSize && (
@@ -192,8 +198,6 @@ function CartSidebar({ items, onClose, onUpdateQty, onRemove }: {
   onRemove: (idx: number) => void;
 }) {
   const total = items.reduce((s, i) => s + i.product.price * i.qty, 0);
-
-  const waMsg = items.map(i => `• ${i.product.name} (Talle ${i.size}) x${i.qty} — ${fmt(i.product.price * i.qty)}`).join('%0A') + `%0A%0ATotal: ${fmt(total)}`;
 
   return (
     <div className="fixed inset-0 z-[90] flex justify-end font-['Inter']">
@@ -267,13 +271,77 @@ function CartSidebar({ items, onClose, onUpdateQty, onRemove }: {
   );
 }
 
+// ─── Search Overlay ───────────────────────────────────────────────────────────
+
+function SearchOverlay({ onClose, onSelectProduct }: { onClose: () => void; onSelectProduct: (p: Product) => void }) {
+  const [query, setQuery] = useState('');
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => { inputRef.current?.focus(); }, []);
+
+  const results = query.trim().length > 0
+    ? PRODUCTS.filter(p => p.name.toLowerCase().includes(query.toLowerCase()))
+    : [];
+
+  return (
+    <div className="fixed inset-0 z-[110] flex flex-col font-['Inter']" onClick={onClose}>
+      <div className="absolute inset-0 bg-[#0A0A0A]/95 backdrop-blur-md" />
+
+      <div className="relative z-10 flex flex-col w-full max-w-2xl mx-auto mt-24 px-6" onClick={e => e.stopPropagation()}>
+        {/* Input */}
+        <div className="flex items-center gap-4 border-b border-[#F5F4F2]/20 pb-4 focus-within:border-[#8B5E3C] transition-colors duration-500">
+          <Search size={20} strokeWidth={1.5} className="text-[#C8C0B8] shrink-0" />
+          <input
+            ref={inputRef}
+            type="text"
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+            placeholder="Buscar producto..."
+            className="bg-transparent outline-none w-full text-[#F5F4F2] text-xl font-light tracking-wide placeholder-[#C8C0B8]/30"
+          />
+          <button onClick={onClose} className="text-[#C8C0B8] hover:text-[#F5F4F2] transition-colors shrink-0"><X size={20} strokeWidth={1.5} /></button>
+        </div>
+
+        {/* Results */}
+        {query.trim().length > 0 && (
+          <div className="mt-6 flex flex-col gap-3">
+            {results.length === 0 ? (
+              <p className="text-sm text-[#C8C0B8]/50 tracking-[0.15em] uppercase py-8 text-center">Sin resultados para "{query}"</p>
+            ) : results.map(p => (
+              <button
+                key={p.id}
+                onClick={() => { onSelectProduct(p); onClose(); }}
+                className="flex items-center gap-5 p-4 bg-[#111] border border-[#F5F4F2]/8 hover:border-[#F5F4F2]/30 hover:bg-[#1a1a1a] transition-all duration-200 text-left group"
+              >
+                <div className="w-16 h-16 shrink-0 overflow-hidden bg-[#0A0A0A]">
+                  <img src={p.img} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs tracking-[0.15em] uppercase text-[#F5F4F2]">{p.name}</p>
+                  <p className="text-[10px] text-[#C8C0B8] mt-1">Talles: {p.sizes.join(' / ')}</p>
+                </div>
+                <span className="text-sm text-[#C8C0B8] font-light shrink-0">{fmt(p.price)}</span>
+              </button>
+            ))}
+          </div>
+        )}
+
+        {query.trim().length === 0 && (
+          <p className="mt-8 text-[10px] tracking-[0.3em] uppercase text-[#C8C0B8]/30 text-center">Escribí para buscar</p>
+        )}
+      </div>
+    </div>
+  );
+}
+
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 export function Home() {
-  const [isScrolled, setIsScrolled]     = useState(false);
+  const [isScrolled, setIsScrolled]       = useState(false);
   const [activeProduct, setActiveProduct] = useState<Product | null>(null);
-  const [cartOpen, setCartOpen]         = useState(false);
-  const [cartItems, setCartItems]       = useState<CartItem[]>([]);
+  const [cartOpen, setCartOpen]           = useState(false);
+  const [cartItems, setCartItems]         = useState<CartItem[]>([]);
+  const [searchOpen, setSearchOpen]       = useState(false);
 
   useEffect(() => {
     const h = () => setIsScrolled(window.scrollY > 50);
@@ -281,11 +349,10 @@ export function Home() {
     return () => window.removeEventListener('scroll', h);
   }, []);
 
-  // Lock body scroll when overlay is open
   useEffect(() => {
-    document.body.style.overflow = (activeProduct || cartOpen) ? 'hidden' : '';
+    document.body.style.overflow = (activeProduct || cartOpen || searchOpen) ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
-  }, [activeProduct, cartOpen]);
+  }, [activeProduct, cartOpen, searchOpen]);
 
   const addToCart = (item: CartItem) => {
     setCartItems(prev => {
@@ -323,11 +390,11 @@ export function Home() {
               <a href="#gorras" className="block px-6 py-4 text-xs uppercase tracking-[0.15em] font-light text-[#C8C0B8] hover:text-[#F5F4F2] hover:bg-[#F5F4F2]/4 transition-colors">Accesorios</a>
             </div>
           </div>
-          <a href="#" className="hover:text-[#F5F4F2] transition-colors duration-300">Contacto</a>
+          <a href="#contacto" className="hover:text-[#F5F4F2] transition-colors duration-300">Contacto</a>
         </div>
 
         <div className="flex gap-6 text-[#F5F4F2]">
-          <button aria-label="Search" className="hover:text-[#8B5E3C] transition-colors duration-300"><Search size={20} strokeWidth={1.5} /></button>
+          <button aria-label="Search" onClick={() => setSearchOpen(true)} className="hover:text-[#8B5E3C] transition-colors duration-300"><Search size={20} strokeWidth={1.5} /></button>
           <button aria-label="Cart" onClick={() => setCartOpen(true)} className="hover:text-[#8B5E3C] transition-colors duration-300 relative">
             <ShoppingCart size={20} strokeWidth={1.5} />
             {totalItems > 0 && (
@@ -360,18 +427,23 @@ export function Home() {
           <p className="text-[10px] tracking-[0.4em] uppercase text-[#8B5E3C] mb-3">Colección</p>
           <h2 className="font-['Bebas_Neue'] text-4xl md:text-5xl tracking-widest text-[#F5F4F2]">PRODUCTOS</h2>
         </FadeIn>
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-y-16 md:gap-x-12 lg:gap-x-16">
-          <div className="md:col-span-6 lg:col-span-5 md:mt-32">
-            <FadeIn><ProductCard product={PRODUCTS[0]} onClick={() => setActiveProduct(PRODUCTS[0])} /></FadeIn>
-          </div>
-          <div className="md:col-span-6 lg:col-span-5 lg:col-start-7">
+
+        {/* Row 1: first 2 products */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-16 md:gap-x-12 lg:gap-x-16 mb-16">
+          <FadeIn><ProductCard product={PRODUCTS[0]} onClick={() => setActiveProduct(PRODUCTS[0])} /></FadeIn>
+          <div className="md:mt-32">
             <FadeIn delay={200}><ProductCard product={PRODUCTS[1]} onClick={() => setActiveProduct(PRODUCTS[1])} /></FadeIn>
           </div>
-          <div className="md:col-span-6 lg:col-span-6 md:mt-24 lg:-mt-24">
-            <FadeIn><ProductCard product={PRODUCTS[2]} onClick={() => setActiveProduct(PRODUCTS[2])} /></FadeIn>
+        </div>
+
+        {/* Row 2: last 3 products */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-y-16 md:gap-x-12 lg:gap-x-16">
+          <FadeIn><ProductCard product={PRODUCTS[2]} onClick={() => setActiveProduct(PRODUCTS[2])} /></FadeIn>
+          <div className="md:mt-16">
+            <FadeIn delay={150}><ProductCard product={PRODUCTS[3]} onClick={() => setActiveProduct(PRODUCTS[3])} /></FadeIn>
           </div>
-          <div id="gorras" className="md:col-span-6 lg:col-span-4 lg:col-start-8 md:-mt-32">
-            <FadeIn delay={200}><ProductCard product={PRODUCTS[3]} onClick={() => setActiveProduct(PRODUCTS[3])} /></FadeIn>
+          <div id="gorras" className="md:-mt-16">
+            <FadeIn delay={300}><ProductCard product={PRODUCTS[4]} onClick={() => setActiveProduct(PRODUCTS[4])} /></FadeIn>
           </div>
         </div>
       </section>
@@ -407,7 +479,48 @@ export function Home() {
         </FadeIn>
       </section>
 
-      {/* ── 9. Footer ── */}
+      {/* ── 9. Contact ── */}
+      <section id="contacto" className="py-24 md:py-32 px-6 border-t border-[#F5F4F2]/5 bg-[#0A0A0A]">
+        <div className="max-w-[900px] mx-auto">
+          <FadeIn>
+            <p className="text-[10px] tracking-[0.4em] uppercase text-[#8B5E3C] mb-3">Contacto</p>
+            <h2 className="font-['Bebas_Neue'] text-4xl md:text-5xl tracking-widest text-[#F5F4F2] mb-16">HABLEMOS</h2>
+          </FadeIn>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <FadeIn delay={0}>
+              <a href="https://instagram.com/satuurn.gm" target="_blank" rel="noopener noreferrer" className="flex flex-col gap-4 p-8 border border-[#F5F4F2]/8 hover:border-[#8B5E3C]/60 hover:bg-[#F5F4F2]/2 transition-all duration-300 group">
+                <Instagram size={22} strokeWidth={1} className="text-[#8B5E3C]" />
+                <div>
+                  <p className="text-[10px] tracking-[0.25em] uppercase text-[#C8C0B8] mb-1">Instagram</p>
+                  <p className="text-sm text-[#F5F4F2] group-hover:text-[#8B5E3C] transition-colors duration-300">@satuurn.gm</p>
+                </div>
+              </a>
+            </FadeIn>
+            <FadeIn delay={100}>
+              <a href="https://tiktok.com/@saturn.gm" target="_blank" rel="noopener noreferrer" className="flex flex-col gap-4 p-8 border border-[#F5F4F2]/8 hover:border-[#8B5E3C]/60 hover:bg-[#F5F4F2]/2 transition-all duration-300 group">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="text-[#8B5E3C]">
+                  <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+                </svg>
+                <div>
+                  <p className="text-[10px] tracking-[0.25em] uppercase text-[#C8C0B8] mb-1">TikTok</p>
+                  <p className="text-sm text-[#F5F4F2] group-hover:text-[#8B5E3C] transition-colors duration-300">@saturn.gm</p>
+                </div>
+              </a>
+            </FadeIn>
+            <FadeIn delay={200}>
+              <a href="mailto:satuurngm@gmail.com" className="flex flex-col gap-4 p-8 border border-[#F5F4F2]/8 hover:border-[#8B5E3C]/60 hover:bg-[#F5F4F2]/2 transition-all duration-300 group">
+                <Mail size={22} strokeWidth={1} className="text-[#8B5E3C]" />
+                <div>
+                  <p className="text-[10px] tracking-[0.25em] uppercase text-[#C8C0B8] mb-1">Email</p>
+                  <p className="text-sm text-[#F5F4F2] group-hover:text-[#8B5E3C] transition-colors duration-300">satuurngm@gmail.com</p>
+                </div>
+              </a>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 10. Footer ── */}
       <footer className="bg-[#0A0A0A] pt-24 pb-12 px-8 md:px-16 border-t border-[#F5F4F2]/5">
         <div className="max-w-[2000px] mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-16 mb-24 md:mb-32">
@@ -420,7 +533,7 @@ export function Home() {
             <div className="col-span-1 flex flex-col gap-5 font-['Inter'] text-xs font-light tracking-[0.1em] text-[#C8C0B8]">
               <a href="#" className="hover:text-[#8B5E3C] transition-colors w-fit">NOSOTROS</a>
               <a href="#" className="hover:text-[#8B5E3C] transition-colors w-fit">LOOKBOOK</a>
-              <a href="#" className="hover:text-[#8B5E3C] transition-colors w-fit">CONTACTO</a>
+              <a href="#contacto" className="hover:text-[#8B5E3C] transition-colors w-fit">CONTACTO</a>
             </div>
             <div className="col-span-1 flex flex-col gap-5 font-['Inter'] text-xs font-light tracking-[0.1em] text-[#C8C0B8]">
               <a href="#" className="hover:text-[#8B5E3C] transition-colors w-fit">ENVÍOS</a>
@@ -439,6 +552,12 @@ export function Home() {
       </footer>
 
       {/* ── Overlays ── */}
+      {searchOpen && (
+        <SearchOverlay
+          onClose={() => setSearchOpen(false)}
+          onSelectProduct={(p) => { setActiveProduct(p); setSearchOpen(false); }}
+        />
+      )}
       {activeProduct && (
         <ProductModal
           product={activeProduct}
