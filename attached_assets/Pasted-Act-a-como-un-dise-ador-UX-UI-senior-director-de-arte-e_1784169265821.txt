@@ -1,0 +1,469 @@
+Actúa como un diseñador UX/UI senior, director de arte, experto en e-commerce y desarrollador Front-End especializado en marcas premium de streetwear.
+
+Quiero que diseñes y desarrolles una página web extremadamente moderna, minimalista y premium para una marca de ropa streetwear.
+
+NO quiero una página genérica de Shopify.
+
+Quiero que parezca una marca de lujo moderna, similar a Anhelo Studios, Represent, Corteiz, Cole Buxton, Fear of God Essentials, Derschutze, Syna World y otras marcas premium.
+
+El objetivo principal es transmitir exclusividad, calidad y deseo de compra.
+
+####################################
+
+ESTILO VISUAL
+
+####################################
+
+El diseño debe ser completamente minimalista.
+
+Muchísimo espacio en blanco.
+
+Tipografía grande.
+
+Jerarquía visual excelente.
+
+Fotografías enormes.
+
+Animaciones suaves.
+
+Nada de colores fuertes.
+
+Paleta:
+
+• Blanco
+• Negro
+• Gris muy claro
+• Gris oscuro
+
+Detalles en un único color secundario muy elegante.
+
+Todo debe sentirse premium.
+
+Nada debe verse barato.
+
+Nada debe parecer una plantilla.
+
+####################################
+
+DISEÑO
+
+####################################
+
+Quiero un diseño completamente responsive.
+
+Desktop primero.
+
+Luego tablet.
+
+Luego móvil.
+
+El diseño debe utilizar:
+
+• Grid
+• Flexbox
+• Mucho espacio negativo
+• Bordes muy finos
+• Sombras extremadamente suaves
+• Transiciones fluidas
+
+####################################
+
+ANIMACIONES
+
+####################################
+
+Agregar animaciones modernas usando GSAP y Framer Motion.
+
+Ejemplos:
+
+Fade In
+
+Parallax
+
+Scroll Reveal
+
+Text Reveal
+
+Smooth Scroll
+
+Imagen que aumenta apenas al hacer hover.
+
+Botones con animación elegante.
+
+Cards con movimiento muy sutil.
+
+Header que desaparece al bajar y aparece al subir.
+
+Cambio suave entre páginas.
+
+Preloader minimalista.
+
+Cursor personalizado.
+
+####################################
+
+HOME
+
+####################################
+
+Hero fullscreen.
+
+Video o imagen ocupando toda la pantalla.
+
+Texto enorme.
+
+Ejemplo:
+
+NEW DROP
+
+SEASON 2026
+
+DISCOVER
+
+Botón:
+
+SHOP NOW
+
+Luego una sección de productos destacados.
+
+Grid limpio.
+
+Muchísimo espacio.
+
+Cada producto con:
+
+Imagen
+
+Nombre
+
+Precio
+
+Hover elegante
+
+Cambio entre imágenes al pasar el mouse.
+
+Luego una sección editorial.
+
+Fotos gigantes.
+
+Texto minimalista.
+
+Después:
+
+Banner de colección.
+
+Después:
+
+Newsletter.
+
+Después:
+
+Footer.
+
+####################################
+
+PÁGINA DE PRODUCTO
+
+####################################
+
+Imagen gigante.
+
+Galería lateral.
+
+Zoom elegante.
+
+Información limpia.
+
+Nombre.
+
+Precio.
+
+Talles.
+
+Stock.
+
+Descripción.
+
+Características.
+
+Botón Comprar.
+
+Botón Agregar al carrito.
+
+Botón Comprar por WhatsApp.
+
+Productos relacionados.
+
+####################################
+
+CARRITO
+
+####################################
+
+Sidebar deslizable.
+
+Animación.
+
+Actualizar cantidad.
+
+Eliminar productos.
+
+Subtotal.
+
+Total.
+
+Botón finalizar compra.
+
+####################################
+
+HEADER
+
+####################################
+
+Logo centrado.
+
+Menú minimalista.
+
+Links:
+
+Inicio
+
+Shop
+
+Colecciones
+
+Lookbook
+
+Nosotros
+
+Contacto
+
+Ícono de búsqueda.
+
+Ícono de usuario.
+
+Ícono del carrito.
+
+Header transparente sobre el hero.
+
+Luego cambia a blanco.
+
+####################################
+
+FOOTER
+
+####################################
+
+Muy limpio.
+
+Logo.
+
+Instagram.
+
+TikTok.
+
+Correo.
+
+Políticas.
+
+Términos.
+
+Newsletter.
+
+####################################
+
+TIPOGRAFÍA
+
+####################################
+
+Usar una combinación premium.
+
+Ejemplo:
+
+Neue Montreal
+
+General Sans
+
+Satoshi
+
+Helvetica Neue
+
+Inter
+
+Evitar tipografías comunes.
+
+####################################
+
+PRODUCTOS
+
+####################################
+
+Las cards deben verse extremadamente premium.
+
+Imagen ocupando casi toda la tarjeta.
+
+Hover con:
+
+Cambio de imagen.
+
+Leve zoom.
+
+Fade.
+
+Botón rápido de compra.
+
+####################################
+
+EXPERIENCIA
+
+####################################
+
+Quiero que cada sección tenga ritmo visual.
+
+Que el usuario tenga ganas de seguir haciendo scroll.
+
+Que parezca una marca de lujo.
+
+Que inspire confianza.
+
+####################################
+
+RENDIMIENTO
+
+####################################
+
+Optimizar al máximo.
+
+Lazy Loading.
+
+Imágenes WebP.
+
+SEO.
+
+Accesibilidad.
+
+Performance superior a 95 en Lighthouse.
+
+####################################
+
+TECNOLOGÍA
+
+####################################
+
+Usar:
+
+Next.js
+
+React
+
+TypeScript
+
+Tailwind CSS
+
+GSAP
+
+Framer Motion
+
+Lenis para Smooth Scroll
+
+Lucide Icons
+
+Swiper.js
+
+Shadcn UI
+
+####################################
+
+ESTRUCTURA
+
+####################################
+
+/
+
+Inicio
+
+/shop
+
+Productos
+
+/product/[id]
+
+Detalle
+
+/cart
+
+Carrito
+
+/checkout
+
+Checkout
+
+/about
+
+Nosotros
+
+/contact
+
+Contacto
+
+####################################
+
+EXTRAS PREMIUM
+
+####################################
+
+Dark Mode.
+
+Filtros por categoría.
+
+Filtros por talle.
+
+Filtros por precio.
+
+Buscador instantáneo.
+
+Wishlist.
+
+Productos recientemente vistos.
+
+Productos recomendados.
+
+Animaciones al agregar al carrito.
+
+Cambio de moneda.
+
+Notificaciones elegantes.
+
+####################################
+
+DISEÑO
+
+####################################
+
+Quiero que cada componente parezca diseñado por un estudio creativo profesional.
+
+Nada debe parecer generado automáticamente.
+
+Quiero que la página transmita:
+
+Minimalismo.
+
+Moda.
+
+Exclusividad.
+
+Elegancia.
+
+Streetwear moderno.
+
+####################################
+
+IMPORTANTE
+
+No copies el diseño de Anhelo Studios.
+
+Úsalo únicamente como inspiración.
+
+Diseña una identidad completamente nueva y original con una calidad igual o superior.
+
+Cada sección debe tener un diseño único, coherente y profesional, pensado para maximizar la conversión y la percepción de valor de la marca.
