@@ -85,12 +85,19 @@ export function Home() {
     <div className="min-h-screen bg-[#0A0A0A] text-[#F5F4F2] font-['Inter'] selection:bg-[#8B5E3C] selection:text-[#F5F4F2] overflow-x-hidden">
       {/* 1. Fixed Header */}
       <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-700 flex items-center justify-between px-6 md:px-12 py-6 md:py-8 ${isScrolled ? 'bg-[#0A0A0A]/95 backdrop-blur-md border-b border-[#F5F4F2]/5 py-4' : 'bg-transparent border-b border-transparent'}`}>
-        <div className="text-3xl md:text-4xl font-['Bebas_Neue'] tracking-widest text-[#F5F4F2] select-none">VLTG</div>
+        <div className="text-3xl md:text-4xl font-['Bebas_Neue'] tracking-widest text-[#F5F4F2] select-none">GM</div>
         <div className="hidden md:flex gap-12 text-xs uppercase tracking-[0.2em] font-light text-[#C8C0B8]">
-          <a href="#" className="hover:text-[#F5F4F2] transition-colors duration-300">Shop</a>
-          <a href="#" className="hover:text-[#F5F4F2] transition-colors duration-300">Collections</a>
-          <a href="#" className="hover:text-[#F5F4F2] transition-colors duration-300">Lookbook</a>
-          <a href="#" className="hover:text-[#F5F4F2] transition-colors duration-300">About</a>
+          <a href="#" className="hover:text-[#F5F4F2] transition-colors duration-300">Inicio</a>
+          <div className="relative group">
+            <button className="hover:text-[#F5F4F2] transition-colors duration-300 flex items-center gap-1 uppercase tracking-[0.2em] font-light text-[#C8C0B8]">
+              Productos <span className="text-[8px] opacity-60">▾</span>
+            </button>
+            <div className="absolute top-full left-1/2 -translate-x-1/2 mt-4 min-w-[160px] bg-[#0A0A0A] border border-[#F5F4F2]/8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-1 group-hover:translate-y-0">
+              <a href="#" className="block px-6 py-4 text-xs uppercase tracking-[0.15em] font-light text-[#C8C0B8] hover:text-[#F5F4F2] hover:bg-[#F5F4F2]/4 transition-colors border-b border-[#F5F4F2]/5">Productos</a>
+              <a href="#" className="block px-6 py-4 text-xs uppercase tracking-[0.15em] font-light text-[#C8C0B8] hover:text-[#F5F4F2] hover:bg-[#F5F4F2]/4 transition-colors">Accesorios</a>
+            </div>
+          </div>
+          <a href="#" className="hover:text-[#F5F4F2] transition-colors duration-300">Contacto</a>
         </div>
         <div className="flex gap-6 text-[#F5F4F2]">
           <button aria-label="Search" className="hover:text-[#8B5E3C] transition-colors duration-300"><Search size={20} strokeWidth={1.5} /></button>
@@ -104,14 +111,14 @@ export function Home() {
       {/* 2. Hero */}
       <section className="relative h-[100svh] w-full flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0 bg-[#0A0A0A]">
-          <img src="/__mockup/images/streetwear/hero.jpg" alt="Hero" className="w-full h-full object-cover opacity-70 animate-[kenburns_20s_ease-out_forwards] origin-center scale-105" />
+          <img src="/__mockup/images/streetwear/hero.png" alt="Hero" className="w-full h-full object-cover opacity-90 animate-[kenburns_20s_ease-out_forwards] origin-center scale-105" />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/60 via-transparent to-[#0A0A0A]"></div>
           <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A]/40 to-transparent"></div>
         </div>
         <div className="relative z-10 text-center flex flex-col items-center mt-20 w-full px-4">
           <FadeIn>
             <h1 className="text-[15vw] md:text-[12vw] leading-[0.8] font-['Bebas_Neue'] tracking-wider text-[#F5F4F2] select-none drop-shadow-2xl">
-              NEW DROP <br /> SS26
+              SATURN <br /> GM
             </h1>
           </FadeIn>
           <FadeIn delay={400}>
@@ -253,7 +260,7 @@ export function Home() {
         <div className="max-w-[2000px] mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-16 mb-24 md:mb-32">
             <div className="col-span-1">
-              <div className="text-4xl font-['Bebas_Neue'] tracking-wider mb-8 text-[#F5F4F2] select-none">VLTG</div>
+              <div className="text-4xl font-['Bebas_Neue'] tracking-wider mb-8 text-[#F5F4F2] select-none">GM</div>
             </div>
             <div className="col-span-1 flex flex-col gap-5 font-['Inter'] text-xs font-light tracking-[0.1em] text-[#C8C0B8]">
               <a href="#" className="hover:text-[#8B5E3C] transition-colors w-fit">SHOP ALL</a>
@@ -276,7 +283,7 @@ export function Home() {
           </div>
           
           <div className="flex flex-col lg:flex-row justify-between items-center gap-8 pt-8 border-t border-[#F5F4F2]/5 font-['Inter'] text-[10px] tracking-[0.2em] text-[#C8C0B8]/50 uppercase">
-            <div>&copy; {new Date().getFullYear()} VLTG. ALL RIGHTS RESERVED.</div>
+            <div>&copy; {new Date().getFullYear()} GM. ALL RIGHTS RESERVED.</div>
             <div className="text-[#8B5E3C]">Made with restraint.</div>
             <div className="flex gap-8">
               <a href="#" className="hover:text-[#F5F4F2] transition-colors">INSTAGRAM</a>
