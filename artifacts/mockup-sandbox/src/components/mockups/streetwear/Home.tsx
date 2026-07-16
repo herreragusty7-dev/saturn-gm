@@ -75,7 +75,7 @@ export function Home() {
   }, []);
 
   const products = [
-    { name: "Heavyweight Box Hoodie", price: "$185", img: "/__mockup/images/streetwear/product-hoodie.jpg" },
+    { name: "Heavyweight Box Hoodie", price: "$185", img: "/__mockup/images/streetwear/product-hoodie.png" },
     { name: "Structured Frame Tee", price: "$95", img: "/__mockup/images/streetwear/product-tee.jpg" },
     { name: "Articulated Cargo Pant", price: "$245", img: "/__mockup/images/streetwear/product-cargo.jpg" },
     { name: "Oversized Trench Coat", price: "$495", img: "/__mockup/images/streetwear/product-coat.jpg" },
