@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Search, ShoppingCart, ArrowRight, Layers, Scissors, Hexagon, X, Plus, Minus, ChevronRight } from 'lucide-react';
+import { Search, ShoppingCart, ArrowRight, Truck, CreditCard, Shield, X, Plus, Minus, ChevronRight, Instagram } from 'lucide-react';
 
 if (typeof document !== 'undefined') {
   const id = 'gm-fonts';
@@ -253,12 +253,12 @@ function CartSidebar({ items, onClose, onUpdateQty, onRemove }: {
               Finalizar compra
             </button>
             <a
-              href={`https://wa.me/?text=Hola! Quiero hacer el siguiente pedido:%0A${waMsg}`}
+              href="https://instagram.com/satuurn.gm"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full py-4 text-xs tracking-[0.25em] uppercase font-medium text-center border border-[#25D366] text-[#25D366] hover:bg-[#25D366] hover:text-[#0A0A0A] transition-all duration-300"
+              className="w-full py-4 text-xs tracking-[0.25em] uppercase font-medium text-center border border-[#C8C0B8]/40 text-[#C8C0B8] hover:border-[#F5F4F2] hover:text-[#F5F4F2] transition-all duration-300 flex items-center justify-center gap-2"
             >
-              Encargar por WhatsApp
+              <Instagram size={13} strokeWidth={1.5} /> Encargar por Instagram
             </a>
           </div>
         )}
@@ -319,8 +319,8 @@ export function Home() {
               Productos <span className="text-[8px] opacity-60">▾</span>
             </button>
             <div className="absolute top-full left-1/2 -translate-x-1/2 mt-4 min-w-[160px] bg-[#0A0A0A] border border-[#F5F4F2]/8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-1 group-hover:translate-y-0">
-              <a href="#" className="block px-6 py-4 text-xs uppercase tracking-[0.15em] font-light text-[#C8C0B8] hover:text-[#F5F4F2] hover:bg-[#F5F4F2]/4 transition-colors border-b border-[#F5F4F2]/5">Productos</a>
-              <a href="#" className="block px-6 py-4 text-xs uppercase tracking-[0.15em] font-light text-[#C8C0B8] hover:text-[#F5F4F2] hover:bg-[#F5F4F2]/4 transition-colors">Accesorios</a>
+              <a href="#productos" className="block px-6 py-4 text-xs uppercase tracking-[0.15em] font-light text-[#C8C0B8] hover:text-[#F5F4F2] hover:bg-[#F5F4F2]/4 transition-colors border-b border-[#F5F4F2]/5">Productos</a>
+              <a href="#gorras" className="block px-6 py-4 text-xs uppercase tracking-[0.15em] font-light text-[#C8C0B8] hover:text-[#F5F4F2] hover:bg-[#F5F4F2]/4 transition-colors">Accesorios</a>
             </div>
           </div>
           <a href="#" className="hover:text-[#F5F4F2] transition-colors duration-300">Contacto</a>
@@ -350,17 +350,12 @@ export function Home() {
               SATURN <br /> GM
             </h1>
           </FadeIn>
-          <FadeIn delay={400}>
-            <a href="#" className="mt-16 md:mt-24 inline-flex items-center gap-3 text-xs md:text-sm uppercase tracking-[0.2em] font-light border-b border-[#8B5E3C] pb-2 hover:text-[#8B5E3C] hover:gap-5 transition-all duration-300">
-              Shop Now <ArrowRight size={16} strokeWidth={1.5} />
-            </a>
-          </FadeIn>
         </div>
         <style>{`@keyframes kenburns { from { transform: scale(1.05) translateY(0); } to { transform: scale(1.0) translateY(-2%); } }`}</style>
       </section>
 
       {/* ── 3. Products Grid ── */}
-      <section className="py-24 md:py-48 px-6 md:px-12 lg:px-24 max-w-[2000px] mx-auto">
+      <section id="productos" className="py-24 md:py-48 px-6 md:px-12 lg:px-24 max-w-[2000px] mx-auto">
         <FadeIn className="mb-16 md:mb-24">
           <p className="text-[10px] tracking-[0.4em] uppercase text-[#8B5E3C] mb-3">Colección</p>
           <h2 className="font-['Bebas_Neue'] text-4xl md:text-5xl tracking-widest text-[#F5F4F2]">PRODUCTOS</h2>
@@ -375,66 +370,28 @@ export function Home() {
           <div className="md:col-span-6 lg:col-span-6 md:mt-24 lg:-mt-24">
             <FadeIn><ProductCard product={PRODUCTS[2]} onClick={() => setActiveProduct(PRODUCTS[2])} /></FadeIn>
           </div>
-          <div className="md:col-span-6 lg:col-span-4 lg:col-start-8 md:-mt-32">
+          <div id="gorras" className="md:col-span-6 lg:col-span-4 lg:col-start-8 md:-mt-32">
             <FadeIn delay={200}><ProductCard product={PRODUCTS[3]} onClick={() => setActiveProduct(PRODUCTS[3])} /></FadeIn>
           </div>
-        </div>
-      </section>
-
-      {/* ── 4. Editorial / Lookbook ── */}
-      <section className="w-full grid grid-cols-1 lg:grid-cols-2 bg-[#0A0A0A] border-y border-[#F5F4F2]/5">
-        <div className="h-[60vh] lg:h-screen w-full relative overflow-hidden">
-          <img src="/__mockup/images/streetwear/editorial-portrait.jpg" alt="Lookbook" className="w-full h-full object-cover opacity-80" />
-        </div>
-        <div className="flex items-center justify-center p-12 lg:p-24 relative min-h-[50vh]">
-          <div className="hidden lg:block absolute left-16 top-1/2 -translate-y-1/2 -rotate-90 origin-left text-[10px] tracking-[0.4em] font-light text-[#C8C0B8] uppercase whitespace-nowrap">Lookbook / 2026</div>
-          <div className="max-w-md lg:pl-16">
-            <FadeIn>
-              <h3 className="lg:hidden text-xs tracking-[0.3em] text-[#8B5E3C] mb-8 uppercase">Lookbook / 2026</h3>
-              <p className="font-['Inter'] font-light text-[#C8C0B8] text-lg lg:text-xl leading-[1.8] mb-12">
-                La ciudad no es el escenario. Es el material. Construimos esta colección para el frío, el concreto, y las noches largas.
-              </p>
-              <a href="#" className="inline-flex items-center gap-3 text-xs uppercase tracking-[0.2em] font-light border-b border-[#F5F4F2]/30 pb-2 hover:text-[#8B5E3C] hover:border-[#8B5E3C] hover:gap-5 transition-all duration-300">
-                Ver todo <ArrowRight size={14} strokeWidth={1.5} />
-              </a>
-            </FadeIn>
-          </div>
-        </div>
-      </section>
-
-      {/* ── 5. Collection Banner ── */}
-      <section className="relative h-[50vh] md:h-[70vh] w-full flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <img src="/__mockup/images/streetwear/collection-banner.jpg" alt="Collection" className="w-full h-full object-cover opacity-50" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/40 to-[#0A0A0A]" />
-        </div>
-        <div className="relative z-10 text-center px-6">
-          <FadeIn>
-            <h2 className="text-5xl md:text-7xl lg:text-8xl font-['Bebas_Neue'] tracking-widest text-[#F5F4F2] mb-6 drop-shadow-xl">THE ARCHITECTURE COLLECTION</h2>
-            <p className="font-['Inter'] text-xs tracking-[0.3em] text-[#C8C0B8] uppercase">Disponible ahora — 12 piezas</p>
-          </FadeIn>
         </div>
       </section>
 
       {/* ── 6. Brand Statement ── */}
       <section className="py-32 md:py-56 px-6 flex flex-col items-center justify-center text-center bg-[#0A0A0A]">
         <FadeIn>
-          <h2 className="font-['Inter'] font-light text-2xl md:text-4xl lg:text-5xl tracking-tight text-[#F5F4F2] max-w-4xl leading-[1.3] mb-12">
-            No hacemos ropa.<br />Tomamos decisiones.
+          <h2 className="font-['Inter'] font-light text-2xl md:text-4xl lg:text-5xl tracking-tight text-[#F5F4F2] max-w-4xl leading-[1.3]">
+            La ropa cambia.<br />El estilo permanece.
           </h2>
-          <p className="font-['Inter'] text-xs text-[#C8C0B8] tracking-[0.2em] uppercase leading-[2] max-w-lg mx-auto opacity-70">
-            Cada costura tiene un propósito.<br />El silencio no está vacío. El espacio es intencional.
-          </p>
         </FadeIn>
       </section>
 
-      {/* ── 7. Materials ── */}
+      {/* ── 7. Benefits ── */}
       <section className="py-24 border-y border-[#F5F4F2]/5 bg-[#0A0A0A]">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8 divide-y md:divide-y-0 md:divide-x divide-[#F5F4F2]/5">
-            <FadeIn delay={0}><div className="flex flex-col items-center text-center pt-8 md:pt-0 px-4"><Layers className="mb-8 text-[#8B5E3C]" size={24} strokeWidth={1} /><h4 className="font-['Inter'] text-xs tracking-[0.2em] uppercase text-[#F5F4F2] mb-4">Algodón Japonés Heavyweight</h4><p className="font-['Inter'] text-xs text-[#C8C0B8] font-light max-w-[250px] leading-relaxed">Tejido en telares vintage para una densidad y estructura inigualables.</p></div></FadeIn>
-            <FadeIn delay={150}><div className="flex flex-col items-center text-center pt-16 md:pt-0 px-4"><Scissors className="mb-8 text-[#8B5E3C]" size={24} strokeWidth={1} /><h4 className="font-['Inter'] text-xs tracking-[0.2em] uppercase text-[#F5F4F2] mb-4">Lana Merino Portuguesa</h4><p className="font-['Inter'] text-xs text-[#C8C0B8] font-light max-w-[250px] leading-relaxed">Regulación térmica. Proveniente de molinos patrimoniales desde 1920.</p></div></FadeIn>
-            <FadeIn delay={300}><div className="flex flex-col items-center text-center pt-16 md:pt-0 px-4"><Hexagon className="mb-8 text-[#8B5E3C]" size={24} strokeWidth={1} /><h4 className="font-['Inter'] text-xs tracking-[0.2em] uppercase text-[#F5F4F2] mb-4">Hardware Italiano</h4><p className="font-['Inter'] text-xs text-[#C8C0B8] font-light max-w-[250px] leading-relaxed">Cierres y broches oxidados a medida que envejecen con el usuario.</p></div></FadeIn>
+            <FadeIn delay={0}><div className="flex flex-col items-center text-center pt-8 md:pt-0 px-4"><Truck className="mb-8 text-[#8B5E3C]" size={24} strokeWidth={1} /><h4 className="font-['Inter'] text-xs tracking-[0.2em] uppercase text-[#F5F4F2] mb-4">Envíos a todo el país</h4><p className="font-['Inter'] text-xs text-[#C8C0B8] font-light max-w-[250px] leading-relaxed">Comprá sin salir de tu casa.</p></div></FadeIn>
+            <FadeIn delay={150}><div className="flex flex-col items-center text-center pt-16 md:pt-0 px-4"><CreditCard className="mb-8 text-[#8B5E3C]" size={24} strokeWidth={1} /><h4 className="font-['Inter'] text-xs tracking-[0.2em] uppercase text-[#F5F4F2] mb-4">Hasta 2 cuotas</h4><p className="font-['Inter'] text-xs text-[#C8C0B8] font-light max-w-[250px] leading-relaxed">Sin intereses alguno.</p></div></FadeIn>
+            <FadeIn delay={300}><div className="flex flex-col items-center text-center pt-16 md:pt-0 px-4"><Shield className="mb-8 text-[#8B5E3C]" size={24} strokeWidth={1} /><h4 className="font-['Inter'] text-xs tracking-[0.2em] uppercase text-[#F5F4F2] mb-4">Compra segura</h4><p className="font-['Inter'] text-xs text-[#C8C0B8] font-light max-w-[250px] leading-relaxed">Protegemos tus datos.</p></div></FadeIn>
           </div>
         </div>
       </section>
@@ -442,7 +399,7 @@ export function Home() {
       {/* ── 8. Newsletter ── */}
       <section className="py-32 md:py-48 px-6 flex flex-col items-center justify-center bg-[#0A0A0A]">
         <FadeIn className="w-full max-w-md text-center">
-          <h3 className="font-['Bebas_Neue'] text-5xl tracking-widest text-[#F5F4F2] mb-12">UNITE A LOS DROPS</h3>
+          <h3 className="font-['Inter'] font-light text-xl md:text-2xl tracking-[0.05em] text-[#F5F4F2] mb-12">Dejanos tu mail para recibir novedades</h3>
           <form className="flex border-b border-[#F5F4F2]/20 focus-within:border-[#8B5E3C] transition-colors duration-500 pb-3" onSubmit={e => e.preventDefault()}>
             <input type="email" placeholder="TU EMAIL" required className="bg-transparent border-none outline-none w-full font-['Inter'] text-xs tracking-[0.2em] uppercase text-[#F5F4F2] placeholder-[#C8C0B8]/40" />
             <button type="submit" className="text-[#8B5E3C] font-['Inter'] text-xs tracking-[0.2em] uppercase hover:text-[#F5F4F2] transition-colors duration-300 ml-4">Enviar</button>
@@ -473,10 +430,9 @@ export function Home() {
           </div>
           <div className="flex flex-col lg:flex-row justify-between items-center gap-8 pt-8 border-t border-[#F5F4F2]/5 font-['Inter'] text-[10px] tracking-[0.2em] text-[#C8C0B8]/50 uppercase">
             <div>&copy; {new Date().getFullYear()} GM. TODOS LOS DERECHOS RESERVADOS.</div>
-            <div className="text-[#8B5E3C]">Hecho con criterio.</div>
             <div className="flex gap-8">
-              <a href="#" className="hover:text-[#F5F4F2] transition-colors">INSTAGRAM</a>
-              <a href="#" className="hover:text-[#F5F4F2] transition-colors">TIKTOK</a>
+              <a href="https://instagram.com/satuurn.gm" target="_blank" rel="noopener noreferrer" className="hover:text-[#F5F4F2] transition-colors">INSTAGRAM</a>
+              <a href="https://tiktok.com/@saturn.gm" target="_blank" rel="noopener noreferrer" className="hover:text-[#F5F4F2] transition-colors">TIKTOK</a>
             </div>
           </div>
         </div>
