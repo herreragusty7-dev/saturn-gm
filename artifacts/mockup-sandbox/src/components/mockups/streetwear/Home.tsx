@@ -64,7 +64,7 @@ function FadeIn({ children, delay = 0, className = '' }: { children: React.React
 function ProductCard({ product, onClick }: { product: Product; onClick: () => void }) {
   return (
     <div className="relative w-full aspect-[4/5] overflow-hidden bg-[#111] group cursor-pointer" onClick={onClick}>
-      <img src={product.img} alt={product.name} className="w-full h-full object-cover transition-transform duration-1000 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:scale-[1.05] opacity-90 group-hover:opacity-100" />
+      <img src={product.img} alt={product.name} loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-1000 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:scale-[1.05] opacity-90 group-hover:opacity-100" />
       <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-700" />
       {product.stock <= 2 && (
         <div className="absolute top-5 left-5 bg-[#8B5E3C] text-[#F5F4F2] text-[9px] tracking-[0.15em] uppercase px-3 py-1 font-['Inter']">
@@ -342,12 +342,25 @@ export function Home() {
   const [cartOpen, setCartOpen]           = useState(false);
   const [cartItems, setCartItems]         = useState<CartItem[]>([]);
   const [searchOpen, setSearchOpen]       = useState(false);
+  const [newsletterSuccess, setNewsletterSuccess] = useState(false);
 
   useEffect(() => {
     const h = () => setIsScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', h);
+    window.addEventListener('scroll', h, { passive: true });
     return () => window.removeEventListener('scroll', h);
   }, []);
+
+  // Escape key closes open overlays
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return;
+      if (searchOpen) setSearchOpen(false);
+      else if (activeProduct) setActiveProduct(null);
+      else if (cartOpen) setCartOpen(false);
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, [searchOpen, activeProduct, cartOpen]);
 
   useEffect(() => {
     document.body.style.overflow = (activeProduct || cartOpen || searchOpen) ? 'hidden' : '';
@@ -407,7 +420,7 @@ export function Home() {
       {/* ── 2. Hero ── */}
       <section className="relative h-[100svh] w-full flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0 bg-[#0A0A0A]">
-          <img src="/__mockup/images/streetwear/hero.png" alt="Hero" className="w-full h-full object-cover opacity-90 animate-[kenburns_20s_ease-out_forwards] origin-center scale-105" />
+          <img src="/__mockup/images/streetwear/hero.png" alt="Saturn GM — Colección Streetwear" loading="eager" fetchPriority="high" className="w-full h-full object-cover opacity-90 animate-[kenburns_20s_ease-out_forwards] origin-center scale-105" />
           <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/60 via-transparent to-[#0A0A0A]" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A]/40 to-transparent" />
         </div>
@@ -475,10 +488,19 @@ export function Home() {
       <section className="py-32 md:py-48 px-6 flex flex-col items-center justify-center bg-[#0A0A0A]">
         <FadeIn className="w-full max-w-md text-center">
           <h3 className="font-['Inter'] font-light text-xl md:text-2xl tracking-[0.05em] text-[#F5F4F2] mb-12">Dejanos tu mail para recibir novedades</h3>
-          <form className="flex border-b border-[#F5F4F2]/20 focus-within:border-[#8B5E3C] transition-colors duration-500 pb-3" onSubmit={e => e.preventDefault()}>
-            <input type="email" placeholder="TU EMAIL" required className="bg-transparent border-none outline-none w-full font-['Inter'] text-xs tracking-[0.2em] uppercase text-[#F5F4F2] placeholder-[#C8C0B8]/40" />
-            <button type="submit" className="text-[#8B5E3C] font-['Inter'] text-xs tracking-[0.2em] uppercase hover:text-[#F5F4F2] transition-colors duration-300 ml-4">Enviar</button>
-          </form>
+          {newsletterSuccess ? (
+            <div className="py-4 px-6 border border-[#8B5E3C]/50 text-[#8B5E3C] text-xs tracking-[0.2em] uppercase" role="alert">
+              ✓ ¡Gracias! Te avisamos con las novedades.
+            </div>
+          ) : (
+            <form
+              className="flex border-b border-[#F5F4F2]/20 focus-within:border-[#8B5E3C] transition-colors duration-500 pb-3"
+              onSubmit={e => { e.preventDefault(); setNewsletterSuccess(true); (e.target as HTMLFormElement).reset(); setTimeout(() => setNewsletterSuccess(false), 5000); }}
+            >
+              <input type="email" placeholder="TU EMAIL" required className="bg-transparent border-none outline-none w-full font-['Inter'] text-xs tracking-[0.2em] uppercase text-[#F5F4F2] placeholder-[#C8C0B8]/40" />
+              <button type="submit" className="text-[#8B5E3C] font-['Inter'] text-xs tracking-[0.2em] uppercase hover:text-[#F5F4F2] transition-colors duration-300 ml-4">Enviar</button>
+            </form>
+          )}
         </FadeIn>
       </section>
 
@@ -486,7 +508,7 @@ export function Home() {
       <section id="contacto" className="py-24 md:py-32 px-6 border-t border-[#F5F4F2]/5 bg-[#0A0A0A]">
         <div className="max-w-[900px] mx-auto">
           <FadeIn>
-            <p className="text-[10px] tracking-[0.4em] uppercase text-[#8B5E3C] mb-3">Contacto</p>
+            <p className="text-[10px] tracking-[0.4em] uppercase text-[#8B5E3C] mb-3">Redes &amp; contacto</p>
             <h2 className="font-['Bebas_Neue'] text-4xl md:text-5xl tracking-widest text-[#F5F4F2] mb-16">CONTACTO</h2>
           </FadeIn>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">

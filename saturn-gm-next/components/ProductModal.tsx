@@ -1,7 +1,10 @@
-import { useState, useEffect, useRef } from 'react';
-import { X, Minus, Plus } from 'lucide-react';
-import type { Product, CartItem } from '@/types';
-import { fmt } from '@/data/products';
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
+import { Minus, Plus, X } from 'lucide-react';
+import type { CartItem, Product } from '@/types';
+import { fmt } from '@/utils/format';
 
 interface ProductModalProps {
   product: Product;
@@ -12,6 +15,7 @@ interface ProductModalProps {
 export function ProductModal({ product, onClose, onAddToCart }: ProductModalProps) {
   const allImages =
     product.images && product.images.length > 1 ? product.images : [product.img];
+
   const [activeImg, setActiveImg] = useState(0);
   const [selectedSize, setSelectedSize] = useState<string | null>(
     product.sizes.length === 1 ? product.sizes[0] : null,
@@ -19,7 +23,7 @@ export function ProductModal({ product, onClose, onAddToCart }: ProductModalProp
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
 
-  // Focus the dialog on open
+  // Autofocus dialog on mount
   const dialogRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     dialogRef.current?.focus();
@@ -37,32 +41,34 @@ export function ProductModal({ product, onClose, onAddToCart }: ProductModalProp
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-end md:items-center justify-center font-['Inter']"
+      className="fixed inset-0 z-[100] flex items-end md:items-center justify-center font-inter"
       onClick={onClose}
-      aria-modal="true"
       role="dialog"
+      aria-modal="true"
       aria-label={`Detalle: ${product.name}`}
     >
-      <div className="absolute inset-0 bg-[#0A0A0A]/80 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-gm-bg/80 backdrop-blur-sm" />
 
       <div
         ref={dialogRef}
         tabIndex={-1}
-        className="relative z-10 bg-[#111] border border-white/[0.08] w-full max-w-2xl max-h-[92vh] overflow-y-auto flex flex-col md:flex-row outline-none"
+        className="relative z-10 bg-gm-card border border-white/[0.08] w-full max-w-2xl max-h-[92vh] overflow-y-auto flex flex-col md:flex-row outline-none"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Image column */}
         <div className="w-full md:w-1/2 shrink-0 flex flex-col">
-          <div className="w-full aspect-[4/5] overflow-hidden">
-            <img
+          <div className="relative w-full aspect-[4/5] overflow-hidden">
+            <Image
               src={allImages[activeImg]}
               alt={`${product.name} — imagen ${activeImg + 1}`}
-              loading="eager"
-              decoding="async"
-              className="w-full h-full object-cover transition-opacity duration-300"
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover"
             />
           </div>
-          {/* Thumbnail gallery */}
+
+          {/* Thumbnails */}
           {allImages.length > 1 && (
             <div className="flex gap-2 px-4 py-3 bg-[#0D0D0D]">
               {allImages.map((src, i) => (
@@ -72,16 +78,18 @@ export function ProductModal({ product, onClose, onAddToCart }: ProductModalProp
                   onClick={() => setActiveImg(i)}
                   aria-label={`Ver imagen ${i + 1}`}
                   aria-pressed={activeImg === i}
-                  className={`w-14 h-14 border overflow-hidden transition-all duration-200 ${
+                  className={`relative w-14 h-14 border overflow-hidden transition-all duration-200 ${
                     activeImg === i
-                      ? 'border-[#F5F4F2]'
+                      ? 'border-gm-fg'
                       : 'border-white/[0.15] opacity-50 hover:opacity-80'
                   }`}
                 >
-                  <img
+                  <Image
                     src={src}
                     alt={`${product.name} miniatura ${i + 1}`}
-                    className="w-full h-full object-cover"
+                    fill
+                    sizes="56px"
+                    className="object-cover"
                   />
                 </button>
               ))}
@@ -95,22 +103,21 @@ export function ProductModal({ product, onClose, onAddToCart }: ProductModalProp
             type="button"
             onClick={onClose}
             aria-label="Cerrar"
-            className="self-end text-[#C8C0B8] hover:text-[#F5F4F2] transition-colors"
+            className="self-end text-gm-muted hover:text-gm-fg transition-colors"
           >
             <X size={18} strokeWidth={1.5} />
           </button>
 
           {/* Title & price */}
           <div>
-            <p className="text-[10px] tracking-[0.3em] text-[#8B5E3C] uppercase mb-3">Saturn GM</p>
-            <h2
-              id="modal-title"
-              className="text-xl md:text-2xl tracking-[0.05em] uppercase text-[#F5F4F2] mb-2"
-            >
+            <p className="text-[10px] tracking-[0.3em] text-gm-accent uppercase mb-3">
+              Saturn GM
+            </p>
+            <h2 className="text-xl md:text-2xl tracking-[0.05em] uppercase text-gm-fg mb-2">
               {product.name}
             </h2>
-            <p className="text-2xl font-light text-[#F5F4F2] mt-4">{fmt(product.price)}</p>
-            <p className="text-[10px] tracking-[0.1em] text-[#C8C0B8] mt-1">
+            <p className="text-2xl font-light text-gm-fg mt-4">{fmt(product.price)}</p>
+            <p className="text-[10px] tracking-[0.1em] text-gm-muted mt-1">
               {product.stock} unidad{product.stock !== 1 ? 'es' : ''} disponible
               {product.stock !== 1 ? 's' : ''}
             </p>
@@ -118,7 +125,7 @@ export function ProductModal({ product, onClose, onAddToCart }: ProductModalProp
 
           {/* Size selector */}
           <fieldset>
-            <legend className="text-[10px] tracking-[0.25em] uppercase text-[#C8C0B8] mb-4">
+            <legend className="text-[10px] tracking-[0.25em] uppercase text-gm-muted mb-4">
               Talle
             </legend>
             <div className="flex gap-3 flex-wrap">
@@ -130,8 +137,8 @@ export function ProductModal({ product, onClose, onAddToCart }: ProductModalProp
                   aria-pressed={selectedSize === s}
                   className={`px-5 py-3 text-xs tracking-[0.15em] uppercase border transition-all duration-200 ${
                     selectedSize === s
-                      ? 'border-[#F5F4F2] bg-[#F5F4F2] text-[#0A0A0A]'
-                      : 'border-white/20 text-[#C8C0B8] hover:border-white/60 hover:text-[#F5F4F2]'
+                      ? 'border-gm-fg bg-gm-fg text-gm-bg'
+                      : 'border-white/20 text-gm-muted hover:border-white/60 hover:text-gm-fg'
                   }`}
                 >
                   {s}
@@ -140,20 +147,26 @@ export function ProductModal({ product, onClose, onAddToCart }: ProductModalProp
             </div>
           </fieldset>
 
-          {/* Qty selector */}
+          {/* Qty */}
           <div>
-            <p className="text-[10px] tracking-[0.25em] uppercase text-[#C8C0B8] mb-4">Cantidad</p>
-            <div className="flex items-center gap-4 border border-white/[0.15] w-fit">
+            <p className="text-[10px] tracking-[0.25em] uppercase text-gm-muted mb-4">
+              Cantidad
+            </p>
+            <div
+              className="flex items-center gap-4 border border-white/[0.15] w-fit"
+              role="group"
+              aria-label="Cantidad"
+            >
               <button
                 type="button"
                 onClick={() => setQty((q) => Math.max(1, q - 1))}
                 disabled={qty <= 1}
                 aria-label="Reducir cantidad"
-                className="px-4 py-3 text-[#C8C0B8] hover:text-[#F5F4F2] transition-colors disabled:opacity-30"
+                className="px-4 py-3 text-gm-muted hover:text-gm-fg transition-colors disabled:opacity-30"
               >
                 <Minus size={14} />
               </button>
-              <span className="text-sm w-6 text-center text-[#F5F4F2]" aria-live="polite">
+              <span className="text-sm w-6 text-center text-gm-fg" aria-live="polite">
                 {qty}
               </span>
               <button
@@ -161,7 +174,7 @@ export function ProductModal({ product, onClose, onAddToCart }: ProductModalProp
                 onClick={() => setQty((q) => Math.min(product.stock, q + 1))}
                 disabled={qty >= product.stock}
                 aria-label="Aumentar cantidad"
-                className="px-4 py-3 text-[#C8C0B8] hover:text-[#F5F4F2] transition-colors disabled:opacity-30"
+                className="px-4 py-3 text-gm-muted hover:text-gm-fg transition-colors disabled:opacity-30"
               >
                 <Plus size={14} />
               </button>
@@ -175,10 +188,10 @@ export function ProductModal({ product, onClose, onAddToCart }: ProductModalProp
             disabled={!selectedSize}
             className={`w-full py-4 text-xs tracking-[0.25em] uppercase font-medium transition-all duration-300 ${
               added
-                ? 'bg-[#8B5E3C] text-[#F5F4F2]'
+                ? 'bg-gm-accent text-gm-fg'
                 : !selectedSize
-                  ? 'bg-white/10 text-[#C8C0B8] cursor-not-allowed'
-                  : 'bg-[#F5F4F2] text-[#0A0A0A] hover:bg-[#C8C0B8]'
+                  ? 'bg-white/10 text-gm-muted cursor-not-allowed'
+                  : 'bg-gm-fg text-gm-bg hover:bg-gm-muted'
             }`}
           >
             {added
@@ -189,7 +202,7 @@ export function ProductModal({ product, onClose, onAddToCart }: ProductModalProp
           </button>
 
           {!selectedSize && (
-            <p className="text-[10px] text-[#8B5E3C] tracking-[0.1em]" role="alert">
+            <p className="text-[10px] text-gm-accent tracking-[0.1em]" role="alert">
               * Seleccioná un talle para continuar
             </p>
           )}
