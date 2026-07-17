@@ -413,7 +413,10 @@ export function Home() {
         </div>
         <div className="relative z-10 text-center flex flex-col items-center mt-20 w-full px-4">
           <FadeIn>
-            <h1 className="text-[15vw] md:text-[12vw] leading-[0.8] font-['Bebas_Neue'] tracking-wider text-[#F5F4F2] select-none drop-shadow-2xl">
+            <h1
+              className="text-[15vw] md:text-[12vw] leading-[0.8] font-['Bebas_Neue'] tracking-wider text-[#F5F4F2] select-none drop-shadow-2xl"
+              style={{ WebkitTextStroke: '3px #000000', paintOrder: 'stroke fill' }}
+            >
               SATURN <br /> GM
             </h1>
           </FadeIn>
@@ -484,7 +487,7 @@ export function Home() {
         <div className="max-w-[900px] mx-auto">
           <FadeIn>
             <p className="text-[10px] tracking-[0.4em] uppercase text-[#8B5E3C] mb-3">Contacto</p>
-            <h2 className="font-['Bebas_Neue'] text-4xl md:text-5xl tracking-widest text-[#F5F4F2] mb-16">HABLEMOS</h2>
+            <h2 className="font-['Bebas_Neue'] text-4xl md:text-5xl tracking-widest text-[#F5F4F2] mb-16">CONTACTO</h2>
           </FadeIn>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             <FadeIn delay={0}>

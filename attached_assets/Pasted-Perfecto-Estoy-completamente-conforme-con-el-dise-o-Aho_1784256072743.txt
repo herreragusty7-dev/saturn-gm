@@ -1,0 +1,213 @@
+Perfecto. Estoy completamente conforme con el diseño.
+
+Ahora quiero que conviertas este proyecto en una aplicación web completamente funcional, profesional y lista para producción.
+
+NO modifiques la identidad visual, el estilo, los colores ni la experiencia de usuario, salvo que sea necesario para mejorar el rendimiento o corregir errores.
+
+##########################################################
+
+OBJETIVO
+
+##########################################################
+
+Genera el proyecto completo para que pueda:
+
+✅ Descargarlo desde Replit.
+
+✅ Subirlo directamente a GitHub.
+
+✅ Desplegarlo sin modificaciones en Vercel.
+
+##########################################################
+
+TECNOLOGÍA
+
+##########################################################
+
+Utiliza exclusivamente:
+
+• Next.js (App Router)
+
+• React
+
+• TypeScript
+
+• Tailwind CSS
+
+• Framer Motion
+
+• GSAP
+
+• Lucide Icons
+
+• Shadcn UI
+
+• Swiper
+
+• Lenis (Smooth Scroll)
+
+##########################################################
+
+ESTRUCTURA
+
+##########################################################
+
+Genera una estructura profesional.
+
+Debe incluir como mínimo:
+
+app/
+
+components/
+
+public/
+
+hooks/
+
+lib/
+
+styles/
+
+utils/
+
+package.json
+
+next.config.ts
+
+tsconfig.json
+
+tailwind.config.ts
+
+postcss.config.js
+
+eslint.config.js
+
+README.md
+
+##########################################################
+
+CALIDAD DEL CÓDIGO
+
+##########################################################
+
+Todo el código debe ser:
+
+• limpio
+
+• reutilizable
+
+• escalable
+
+• bien organizado
+
+• comentado cuando sea necesario
+
+• utilizando buenas prácticas
+
+Evita duplicar código.
+
+Divide correctamente los componentes.
+
+##########################################################
+
+RESPONSIVE
+
+##########################################################
+
+La página debe verse perfecta en:
+
+320px
+
+375px
+
+390px
+
+414px
+
+768px
+
+1024px
+
+1280px
+
+1440px
+
+1920px
+
+No debe existir scroll horizontal.
+
+Todo debe adaptarse automáticamente.
+
+##########################################################
+
+OPTIMIZACIÓN
+
+##########################################################
+
+Optimiza completamente el proyecto.
+
+Lazy Loading.
+
+Imágenes WebP.
+
+Carga rápida.
+
+SEO.
+
+Accesibilidad.
+
+Performance superior a 95 en Lighthouse.
+
+##########################################################
+
+REVISIÓN FINAL
+
+##########################################################
+
+Antes de finalizar:
+
+• Revisa todo el proyecto.
+
+• Corrige errores.
+
+• Elimina archivos innecesarios.
+
+• Elimina código sin usar.
+
+• Corrige imports.
+
+• Corrige dependencias.
+
+• Verifica que compile correctamente.
+
+• Verifica que no existan errores de TypeScript.
+
+• Verifica que npm install funcione.
+
+• Verifica que npm run dev funcione.
+
+• Verifica que npm run build funcione sin errores.
+
+##########################################################
+
+ENTREGA FINAL
+
+##########################################################
+
+Quiero recibir un proyecto completamente funcional, listo para producción y fácil de mantener.
+
+Debe poder descargarse desde Replit sin perder ningún archivo.
+
+El proyecto debe estar listo para:
+
+1. Descargarlo como ZIP.
+
+2. Subirlo a GitHub.
+
+3. Conectarlo con Vercel.
+
+4. Publicarlo inmediatamente.
+
+No dejes ningún componente incompleto, ninguna página de ejemplo ni funcionalidades a medio terminar.
+
+Considera este proyecto como la versión final destinada a una tienda real.
