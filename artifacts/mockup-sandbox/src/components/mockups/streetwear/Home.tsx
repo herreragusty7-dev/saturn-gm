@@ -415,7 +415,7 @@ export function Home() {
           <FadeIn>
             <h1
               className="text-[15vw] md:text-[12vw] leading-[0.8] font-['Bebas_Neue'] tracking-wider text-[#F5F4F2] select-none drop-shadow-2xl"
-              style={{ WebkitTextStroke: '3px #000000', paintOrder: 'stroke fill' }}
+              style={{ WebkitTextStroke: '10px #000000', paintOrder: 'stroke fill' }}
             >
               SATURN <br /> GM
             </h1>
