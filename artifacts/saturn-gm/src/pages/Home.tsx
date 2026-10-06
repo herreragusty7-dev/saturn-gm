@@ -91,7 +91,7 @@ export default function Home() {
       >
         <div className="absolute inset-0 z-0 bg-[#0A0A0A]">
           <img
-            src="/images/streetwear/hero.png"
+            src="https://res.cloudinary.com/z0klcira/image/upload/v1791252292/banner_saturn_gm_2_twbfos.png"
             alt="Saturn GM — Colección Streetwear"
             loading="eager"
             fetchPriority="high"
@@ -138,33 +138,18 @@ export default function Home() {
           </h2>
         </FadeIn>
 
-        {/* Row 1: 2 products with stagger offset */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-16 md:gap-x-12 lg:gap-x-16 mb-16">
-          <FadeIn>
-            <ProductCard product={PRODUCTS[0]} onClick={() => openProductModal(PRODUCTS[0])} />
-          </FadeIn>
-          <div className="md:mt-32">
-            <FadeIn delay={200}>
-              <ProductCard product={PRODUCTS[1]} onClick={() => openProductModal(PRODUCTS[1])} />
-            </FadeIn>
-          </div>
-        </div>
-
-        {/* Row 2: 3 products with stagger */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-y-16 md:gap-x-12 lg:gap-x-16">
-          <FadeIn>
-            <ProductCard product={PRODUCTS[2]} onClick={() => openProductModal(PRODUCTS[2])} />
-          </FadeIn>
-          <div className="md:mt-16">
-            <FadeIn delay={150}>
-              <ProductCard product={PRODUCTS[3]} onClick={() => openProductModal(PRODUCTS[3])} />
-            </FadeIn>
-          </div>
-          <div id="gorras" className="md:-mt-16">
-            <FadeIn delay={300}>
-              <ProductCard product={PRODUCTS[4]} onClick={() => openProductModal(PRODUCTS[4])} />
-            </FadeIn>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 lg:gap-x-12 gap-y-14 lg:gap-y-20">
+          {PRODUCTS.map((product, index) => (
+            <div
+              key={product.id}
+              id={product.name.toLowerCase().includes('gorras') ? 'gorras' : undefined}
+              className={index % 3 === 1 ? 'md:mt-20' : index % 3 === 2 ? 'md:-mt-8' : ''}
+            >
+              <FadeIn delay={(index % 3) * 120}>
+                <ProductCard product={product} onClick={() => openProductModal(product)} />
+              </FadeIn>
+            </div>
+          ))}
         </div>
       </section>
 

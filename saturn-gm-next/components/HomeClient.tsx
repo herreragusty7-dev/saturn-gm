@@ -87,33 +87,18 @@ export function HomeClient() {
           <h2 className="font-bebas text-4xl md:text-5xl tracking-widest text-gm-fg">PRODUCTOS</h2>
         </FadeIn>
 
-        {/* Row 1 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-16 md:gap-x-12 lg:gap-x-16 mb-16">
-          <FadeIn>
-            <ProductCard product={PRODUCTS[0]} onClick={() => setActiveProduct(PRODUCTS[0])} />
-          </FadeIn>
-          <div className="md:mt-32">
-            <FadeIn delay={200}>
-              <ProductCard product={PRODUCTS[1]} onClick={() => setActiveProduct(PRODUCTS[1])} />
-            </FadeIn>
-          </div>
-        </div>
-
-        {/* Row 2 */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-y-16 md:gap-x-12 lg:gap-x-16">
-          <FadeIn>
-            <ProductCard product={PRODUCTS[2]} onClick={() => setActiveProduct(PRODUCTS[2])} />
-          </FadeIn>
-          <div className="md:mt-16">
-            <FadeIn delay={150}>
-              <ProductCard product={PRODUCTS[3]} onClick={() => setActiveProduct(PRODUCTS[3])} />
-            </FadeIn>
-          </div>
-          <div id="gorras" className="md:-mt-16">
-            <FadeIn delay={300}>
-              <ProductCard product={PRODUCTS[4]} onClick={() => setActiveProduct(PRODUCTS[4])} />
-            </FadeIn>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 lg:gap-x-12 gap-y-14 lg:gap-y-20">
+          {PRODUCTS.map((product, index) => (
+            <div
+              key={product.id}
+              id={product.name.toLowerCase().includes('gorras') ? 'gorras' : undefined}
+              className={index % 3 === 1 ? 'md:mt-20' : index % 3 === 2 ? 'md:-mt-8' : ''}
+            >
+              <FadeIn delay={(index % 3) * 120}>
+                <ProductCard product={product} onClick={() => setActiveProduct(product)} />
+              </FadeIn>
+            </div>
+          ))}
         </div>
       </section>
 

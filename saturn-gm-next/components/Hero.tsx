@@ -12,7 +12,7 @@ export function Hero() {
       {/* Background image */}
       <div className="absolute inset-0 z-0 bg-gm-bg">
         <Image
-          src="/images/streetwear/hero.png"
+          src="https://res.cloudinary.com/z0klcira/image/upload/v1791252292/banner_saturn_gm_2_twbfos.png"
           alt="Saturn GM — Colección Streetwear"
           fill
           priority
